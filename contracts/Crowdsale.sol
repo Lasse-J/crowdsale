@@ -5,10 +5,13 @@ import "./Token.sol";
 
 contract Crowdsale {
 	address public owner;
+//	address public whitelisted;
 	Token public token;
 	uint256 public price;
 	uint256 public maxTokens;
 	uint256 public tokensSold;
+
+	// 
 
 	event Buy(uint256 amount, address buyer);
 	event Finalize(uint256 tokensSold, uint256 ethRaised);
@@ -29,11 +32,25 @@ contract Crowdsale {
 		_;
 	}
 
+//	modifier onlyWhitelisted() {
+//		require(whitelistedAddresses[msg.sender], "User is not whitelisted");
+//		_;
+//	}
+
+	// List of whitelisted addresses
+//	mapping(address => bool) whitelistedAddresses;
+
+	// Adding an address to the whitelist
+//	function addUser(address _addressToWhitelist) public onlyOwner {
+//		whitelistedAddresses[_addressToWhitelist] = true;
+//	}
+
 	receive() external payable {
 		uint256 amount = msg.value / price;
 		buyTokens(amount * 1e18);
 	}
 
+	// remember to add onlyWhitelisted
 	function buyTokens(uint256 _amount) public payable {
 		require(msg.value == (_amount / 1e18) * price);
 		require(token.balanceOf(address(this)) >= _amount);

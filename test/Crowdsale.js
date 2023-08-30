@@ -28,6 +28,10 @@ describe('Crowdsale', () => {
     // Deploy Crowdsale
     crowdsale = await Crowdsale.deploy(token.address, ether(1), '1000000')    
 
+    // Add owner to whitelist
+//    let whitelisted = await crowdsale.addUser(deployer.address)
+//    whitelisted = await crowdsale.addUser(user1.address)
+
     // Send Tokens to Crowdsale (constructor arguments)
     let transaction = await token.connect(deployer).transfer(crowdsale.address, tokens(1000000))
     await transaction.wait()
