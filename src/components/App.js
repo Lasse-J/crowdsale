@@ -4,6 +4,7 @@ import { ethers } from 'ethers'
 
 // Components
 import Navigation from './Navigation';
+import Buy from './Buy';
 import Info from './Info';
 import Loading from './Loading';
 import Progress from './Progress';
@@ -34,8 +35,9 @@ function App() {
     setProvider(provider)
 
     // Initiate contracts
-    const token = new ethers.Contract(config[31337].token.address, TOKEN_ABI, provider)
-    const crowdsale = new ethers.Contract(config[31337].crowdsale.address, CROWDSALE_ABI, provider)
+    const { chainId } = await provider.getNetwork()
+    const token = new ethers.Contract(config[chainId].token.address, TOKEN_ABI, provider)
+    const crowdsale = new ethers.Contract(config[chainId].crowdsale.address, CROWDSALE_ABI, provider)
     setCrowdsale(crowdsale)
 
     // Fetch accounts
@@ -79,6 +81,7 @@ function App() {
       ) : (
         <>
           <p className='text-center'><strong>Current Price:</strong> {price} ETH</p>
+          <Buy provider={provider} price={price} crowdsale={crowdsale} setIsLoading={setIsLoading} />
           <Progress maxTokens={maxTokens} tokensSold={tokensSold} />
         </>
       )}

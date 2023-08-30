@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
+// Ethers helper
 const tokens = (n) => {
   return ethers.utils.parseUnits(n.toString(), 'ether')
 }
@@ -27,7 +28,7 @@ describe('Crowdsale', () => {
     // Deploy Crowdsale
     crowdsale = await Crowdsale.deploy(token.address, ether(1), '1000000')    
 
-    // Send Tokens to Crowdsale
+    // Send Tokens to Crowdsale (constructor arguments)
     let transaction = await token.connect(deployer).transfer(crowdsale.address, tokens(1000000))
     await transaction.wait()
   })
