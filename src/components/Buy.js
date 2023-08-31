@@ -33,6 +33,7 @@ const Buy = ({ provider, price, crowdsale, setIsLoading }) => {
   }
 
   return(
+    <>
     <Form onSubmit={buyHandler} style={{ maxWidth: '800px', margin: '50px auto' }}>
       <Form.Group as={Row}>
         <Col>
@@ -49,6 +50,8 @@ const Buy = ({ provider, price, crowdsale, setIsLoading }) => {
         </Col>
       </Form.Group>
     </Form>
+    <p className='my-5 text-center'>Minimum 10 Tokens, maximum 1000 Tokens.</p>
+    </>
   )
 }
 
