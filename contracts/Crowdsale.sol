@@ -64,6 +64,8 @@ contract Crowdsale {
 		require(msg.value == (_amount / 1e18) * price);
 		require(token.balanceOf(address(this)) >= _amount);
 		require(token.transfer(msg.sender, _amount));
+		require(_amount >= 10000000000000000000); // Minimum 10 Tokens
+		require(_amount <= 1000000000000000000000); // Maximum 1000 Tokens
 
 		tokensSold += _amount;
 

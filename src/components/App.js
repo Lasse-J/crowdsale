@@ -27,10 +27,6 @@ function App() {
   const [maxTokens, setMaxTokens] = useState(0)
   const [tokensSold, setTokensSold] = useState(0)
 
-  const timestamp = Date.now();
-  console.log(timestamp)
-  const [whenOpen, setWhenOpen] = useState(false)
-
   const [isLoading, setIsLoading] = useState(true)
 
   const loadBlockchainData = async () => {
@@ -65,10 +61,6 @@ function App() {
     const tokensSold = ethers.utils.formatUnits(await crowdsale.tokensSold(), 18)
     setTokensSold(tokensSold)
 
-    // Check if crowdsale is open
-    const whenOpen = require(timestamp > 1693526400)
-    setWhenOpen(true)
-
     setIsLoading(false)
   }
 
@@ -88,7 +80,6 @@ function App() {
         <Loading />
       ) : (
         <>
-          <p className='text-center'>{whenOpen ? (<h2>Crowdsale is open</h2>) : (<h2>Crowdsale opens 1 Sep 2023 at 0:00 GMT</h2>)}</p>
           <p className='text-center'><strong>Current Price:</strong> {price} ETH</p>
           <Buy provider={provider} price={price} crowdsale={crowdsale} setIsLoading={setIsLoading} />
           <Progress maxTokens={maxTokens} tokensSold={tokensSold} />
